@@ -1,12 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
 package hotel.aplicacion;
 
-import hotel.modelo.Cliente;
-import hotel.modelo.Reserva;
-import hotel.modelo.TipoHabitacion;
-import hotel.utilidades.Utilidades;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -43,31 +36,7 @@ public class Hotel {
 			case 1:
 				// Opción para crear clientes
 				try {
-					String nombre;
-					do {
-						System.out.println("\nIntroduzca los datos del cliente:");
-						System.out.print("Nombre: ");
-						nombre = sc.nextLine();
-					} while(nombre.isEmpty());
-					
-					String dni=null;
-					boolean dniValido;
-					do {
-						try {
-							System.out.print("Introduzca DNI: ");
-							dni = sc.nextLine();
-							Utilidades.validarDNI(dni);
-							dniValido=true;
-						} catch (Exception e) {
-							System.out.println(e.getMessage());
-							dniValido=false;
-						}
-					} while (!dniValido);
-					System.out.print("Teléfono: ");
-					String telefono = sc.nextLine();
-					// Se crea el primer cliente con datos ingresados por el usuario.
-					cliente1 = new Cliente(nombre, dni, telefono);
-					System.out.println("Cliente creado correctamente:\n" + cliente1.mostrarInformacion());
+					cliente1 = altaCliente(sc);
 					
 					// Creación de dos clientes adicionales con datos literales.
 					cliente2 = new Cliente("Ana García", "12345678Z", "600111222");
@@ -209,6 +178,36 @@ public class Hotel {
 		} while (opcion != 4);
 
 		sc.close();
+	}
+
+	private static Cliente altaCliente(Scanner sc) throws Exception {
+		Cliente cliente1;
+		String nombre;
+		do {
+			System.out.println("\nIntroduzca los datos del cliente:");
+			System.out.print("Nombre: ");
+			nombre = sc.nextLine();
+		} while(nombre.isEmpty());
+		
+		String dni=null;
+		boolean dniValido;
+		do {
+			try {
+				System.out.print("Introduzca DNI: ");
+				dni = sc.nextLine();
+				Utilidades.validarDNI(dni);
+				dniValido=true;
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				dniValido=false;
+			}
+		} while (!dniValido);
+		System.out.print("Teléfono: ");
+		String telefono = sc.nextLine();
+		// Se crea el primer cliente con datos ingresados por el usuario.
+		cliente1 = new Cliente(nombre, dni, telefono);
+		System.out.println("Cliente creado correctamente:\n" + cliente1.mostrarInformacion());
+		return cliente1;
 	}
 
 }
